@@ -1,0 +1,2 @@
+import DocEditor from '@/components/DocEditor';
+export default async function Page({params,searchParams}:{params:Promise<{id:string}>,searchParams:Promise<{token?:string}>}){const {id}=await params;const {token}=await searchParams;return <DocEditor id={id} token={token||''}/>;}
