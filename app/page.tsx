@@ -1,0 +1,2 @@
+import Link from 'next/link';
+export default function Home(){return <main className="shell"><nav className="nav"><strong>guestdocs<span className="accent">.</span></strong><Link href="/dashboard">Workspace →</Link></nav><section className="hero"><p className="eyebrow">BY ORTHDX</p><h1>Documents everyone can collaborate on.</h1><p>Share rich documents with a secure link. Invite anyone to comment, suggest or edit — no guest account required.</p><Link className="button" href="/dashboard">Create a document →</Link></section></main>}
