@@ -1,13 +1,13 @@
-# Guestdocs by ORTHDX
-
-Next.js, Tiptap and Supabase proof-of-concept for no-account document collaboration.
+# Guestdocs — ORTHDX
+A Next.js + Tiptap + Supabase proof-of-concept. Open /dashboard to create documents, without a setup-secret prompt.
 
 ## Setup
-1. Run `supabase/schema.sql` in a Supabase project.
-2. In the ORTHDX Vercel team import this repository. Set the **production branch to main**, and enable preview deployments only if desired.
-3. Add `NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, and a strong `OWNER_SETUP_SECRET` in Vercel.
-4. Run `npm install`, `npm run typecheck`, and `npm run build` before treating this as production ready.
-5. Open `/dashboard`, enter setup secret, and create a document. Securely save the resulting owner URL.
+- Create Supabase project and execute `supabase/schema.sql`.
+- Set `NEXT_PUBLIC_SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` in your ORTHDX Vercel project.
+- Vercel production branch: main.
+- `npm install && npm run typecheck && npm run build`.
 
-## Limitations
-**Development MVP only.** No real-time CRDT multi-user merging, authentication, account library, persistent session, external imports, or provider sync. Suggestions can be reviewed but accepted suggestions are not automatically inserted. URL bearer tokens can leak through sharing/history; do not use confidential content before strengthening security. No rate limiting or identity verification. Guest names are self-declared. Never put the service-role key in client-side code.
+## Caveats
+This is a development prototype, **not a production-ready multi-tenant workspace**. Document creation is publicly accessible and could be abused. Workspace project organization and the owner-token library are **browser-local**, not multi-device or synced. Browser storage loss means lost owner access unless the owner URL is saved. Tokens in URLs are sensitive. Owner account authentication, anti-abuse limits, server-backed projects/workspace membership, secure guest sessions and real-time multiplayer editing must be completed before public launch. Suggestions are not automatically applied. Never expose Supabase's service-role key in client code.
+## Editor components
+Tiptap StarterKit is open source and requires **no API key**. Cloud-hosted Tiptap collaboration/AI or external APIs may need separate accounts/keys. The gradient here is CSS, no Three.js requirement or key.
