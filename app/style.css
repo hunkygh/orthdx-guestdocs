@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
-:root{font-family:'Inter',system-ui,-apple-system,sans-serif;color:#202126;background:#f8f8f9;--ink:#202126;--soft:#686974;--line:#e9e9ed;--paper:#fff;--blur:linear-gradient(110deg,#0091ff 0%,#6647f0 49%,#ff02f0 78%,#fc6d2d 100%)}
+:root{font-family:'Inter',system-ui,-apple-system,sans-serif;color:#202126;background:#fafafa;--ink:#202126;--soft:#686974;--line:#e9e9ed;--paper:#fff;--blur:linear-gradient(110deg,#a7e623 0%,#d1df34 46%,#d99f22 100%)}
 *{box-sizing:border-box}body{margin:0;min-height:100vh}a{color:inherit;text-decoration:none}button,input,textarea,select{font:inherit}button{cursor:pointer}
 .shell{max-width:1200px;margin:auto;padding:0 28px 48px}.nav{height:82px;display:flex;justify-content:space-between;align-items:center;gap:14px;border-bottom:1px solid var(--line)}
 .nav strong,.brand{font-size:23px;letter-spacing:-1.4px;font-weight:800}.accent{background:var(--blur);background-clip:text;-webkit-background-clip:text;color:transparent}
@@ -20,3 +20,40 @@ label{display:block;font-size:12px;font-weight:650;margin:18px 0;color:#53545e}i
 .workspace{display:flex;min-height:100vh;background:#f8f8fa}.rail{width:60px;flex:none;background:#fbfbfc;border-right:1px solid #e7e7ee;display:flex;flex-direction:column;align-items:center;gap:12px;padding:18px 9px}.rail-logo{font-size:25px;font-weight:800;letter-spacing:-2px;margin-bottom:28px}.rail-logo span{color:#9566f7}.rail-icon{border:1px solid transparent!important;background:transparent!important;box-shadow:none!important;color:#62636e!important;width:40px;height:40px;padding:8px!important;font-size:20px!important;border-radius:10px!important;text-align:center;display:flex;align-items:center;justify-content:center}.rail-icon:hover{background:#eeeef4!important;transform:none!important}.rail-spacer{flex:1}
 .library{width:256px;flex:none;border-right:1px solid #e8e8ee;background:#fdfdfe;display:flex;flex-direction:column;padding:20px 13px;gap:5px}.library-head{display:flex;align-items:center;justify-content:space-between;font-size:15px;padding:5px 8px 22px}.plain-btn{background:transparent!important;border:0!important;box-shadow:none!important;color:#777985!important;padding:4px 6px!important;font-size:18px!important}.library-new{background:linear-gradient(180deg,#303039,#202027)!important;width:100%;font-size:12px!important;margin-bottom:25px}.library-caption{font-size:10px;font-weight:750;letter-spacing:.12em;color:#999ba4;padding:12px 9px;display:flex;justify-content:space-between;align-items:center}.project-item,.doc-item{width:100%;display:block;text-align:left;padding:10px 12px;background:transparent!important;border:0!important;box-shadow:none!important;border-radius:8px!important;color:#636572!important;font-size:12px!important;font-weight:500!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.project-item:hover,.doc-item:hover,.project-item.selected,.doc-item.active{background:#f0eef9!important;color:#463d66!important;transform:none!important}.doc-items{display:flex;flex-direction:column;gap:2px;overflow:auto}.library-foot{font-size:11px;color:#a0a1a8;border-top:1px solid #eeeef2;padding:16px 8px;margin-top:auto}.workspace-main{flex:1;min-width:0}.workspace-top{height:63px;padding:0 29px;border-bottom:1px solid #ebebef;display:flex;align-items:center;justify-content:space-between;font-size:12px;color:#62636d;background:#fdfdfe}.workspace-main .doc-layout{padding:20px 24px 30px;grid-template-columns:minmax(0,1fr) 290px}.workspace-main .paper{min-height:calc(100vh - 120px)}.editor-topline{padding:14px 24px 0}
 .welcome{position:relative;overflow:hidden;max-width:1020px;min-height:calc(100vh - 64px);padding:clamp(90px,14vh,170px) 9% 80px}.welcome h1{position:relative;z-index:1;font-family:'DM Sans',sans-serif;font-size:clamp(42px,5vw,74px);letter-spacing:-.06em;line-height:1.12;margin:28px 0 18px}.welcome>p:not(.eyebrow){position:relative;z-index:1;font-size:15px;color:#777985;line-height:1.85;max-width:520px}.welcome-orb{position:absolute;pointer-events:none;right:-70px;top:30px;width:570px;height:460px;background:radial-gradient(ellipse at 35% 40%,#8bb9ff70,transparent 51%),radial-gradient(ellipse at 66% 48%,#aa74f77a,transparent 55%),radial-gradient(ellipse at 55% 65%,#ff85d450,transparent 57%);filter:blur(65px);opacity:.6;animation:glide 12s ease-in-out infinite alternate}.welcome-hint{position:relative;z-index:1;display:inline-block;margin-top:32px;padding:14px 18px;background:#ffffffc9;border:1px solid #ebebef;border-radius:10px;box-shadow:0 8px 32px #25252d07;font-size:12px;color:#777985}@keyframes glide{to{transform:translate(-100px,55px) rotate(18deg);opacity:.85}}@media(max-width:900px){.library{width:190px}.workspace-main .doc-layout{grid-template-columns:1fr}.welcome-orb{opacity:.4}}@media(max-width:600px){.rail{width:50px}.library{width:160px;padding:12px 6px}.welcome{padding:65px 25px}.workspace-main .doc-layout{padding:10px}.workspace-main .paper{padding:20px}}@media(prefers-reduced-motion:reduce){.welcome-orb{animation:none}}
+
+/* Flux — quiet workspace system */
+body,.workspace,.workspace-main,.flux-welcome{background:#fafafa!important}
+.workspace{background:#fafafa!important}
+.rail{background:#fff!important;width:58px;gap:10px;border-color:#e9e9e9}
+.rail-logo{font-size:25px;color:#171817;font-weight:800;margin-bottom:22px}
+.rail-logo span,.flux-wordmark span,.flux-mark span{color:#accd25}
+.rail-icon{font-family:inherit!important;font-weight:600!important;color:#515451!important;font-size:19px!important;transition:background .22s ease,color .22s ease,transform .22s ease}
+.rail-icon:hover{background:#f2f3ee!important;color:#202320!important;transform:translateY(-1px)!important}
+.library{background:#fff!important;padding:0!important;flex:none!important;border-right:1px solid #e9e9e9;display:block!important;min-width:0!important}
+.library-inner{width:238px;height:100%;min-height:100vh;padding:20px 12px;display:flex;flex-direction:column}
+.library-head{padding:1px 8px 23px;flex:none}
+.flux-wordmark{font-size:21px;letter-spacing:-1.2px;font-weight:800}
+.library-new{width:auto!important;align-self:flex-start!important;padding:9px 13px!important;border-radius:8px!important;background:#191b19!important;border:1px solid #161816!important;box-shadow:inset 0 1px #ffffff29,0 2px 3px #00000012!important;color:#fff!important;font-size:12px!important;font-weight:650!important;margin:0 0 27px 7px!important;gap:10px!important}
+.library-new:hover{box-shadow:inset 0 1px #ffffff30,0 3px 8px #00000020!important}
+.library-new span{white-space:nowrap}
+.library-section{display:flex;flex-direction:column;gap:3px}
+.project-item,.doc-item,.project-add{display:flex!important;align-items:center;gap:10px!important;min-height:36px!important;padding:8px 11px!important;margin:0!important;font-size:12px!important;letter-spacing:-.01em;color:#626660!important;transition:background .22s,color .22s,transform .22s!important}
+.project-item.selected,.doc-item.active{background:#eef3df!important;color:#30382a!important}
+.project-item:hover,.doc-item:hover,.project-add:hover{background:#f3f4f1!important;color:#232723!important}
+.nav-symbol{width:17px;flex:none;text-align:center;color:#858a82;font-size:15px}
+.project-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.project-add{background:transparent!important;border:0!important;box-shadow:none!important;width:100%;text-align:left;border-radius:8px!important;justify-content:flex-start!important;color:#979c92!important;font-weight:500!important}
+.project-add:hover{transform:none!important}
+.doc-items{margin-top:20px;padding-top:13px;border-top:1px solid #f1f1f1;gap:2px}
+.workspace-top{background:#fafafa!important;border-bottom:1px solid #ececec;color:#777;font-size:12px}
+.workspace-trail{color:#a5a5a5}
+.welcome-orb,.preview-wrap:before{display:none!important;background:none!important}
+.flux-welcome{min-height:calc(100vh - 64px);display:flex;align-items:center;justify-content:center;text-align:center;padding:40px}
+.flux-welcome-inner{transform:translateY(-22px)}
+.flux-mark{font-size:42px;font-weight:800;letter-spacing:-3px}
+.flux-welcome h1{font-family:'DM Sans',sans-serif;font-size:clamp(44px,6vw,76px);font-weight:700;letter-spacing:-.075em;line-height:1.08;margin:28px 0 18px}
+.flux-welcome p{font-size:14px;color:#858585;line-height:1.8}
+.accent{background:var(--blur)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important}
+.workspace-main .paper,.workspace-main .sidebar{background:#fff;border-color:#ebebeb}
+@media(max-width:600px){.library-inner{width:238px}.rail{width:50px}}
+@media(prefers-reduced-motion:reduce){.rail-icon,.project-item,.doc-item{transition:none!important}}
