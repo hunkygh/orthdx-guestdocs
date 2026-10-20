@@ -9,6 +9,7 @@ type Area='home'|'projects'|'docs'|'connections'|'people';
 export default function WorkspaceShell({children,activeId}:{children:React.ReactNode;activeId?:string}){
  const router=useRouter();
  const [docs,setDocs]=useState<WorkspaceDoc[]>([]),[projects,setProjects]=useState<string[]>([]),[openProjects,setOpenProjects]=useState<string[]>([]);
+ const [projectDialog,SD]=useState<null|'create'|'rename'|'remove'>(null),[projectValue,SV]=useState(''),[targetProject,ST]=useState('');
  const [area,setArea]=useState<Area>('home'),[expanded,setExpanded]=useState(true),[menu,setMenu]=useState(false),[projectMenu,setProjectMenu]=useState<string|null>(null),[busy,setBusy]=useState(false),[error,setError]=useState('');
  useEffect(()=>{setDocs(getDocs());setProjects(getProjects())},[]);
  function refresh(){setDocs(getDocs());setProjects(getProjects())}
@@ -17,22 +18,19 @@ export default function WorkspaceShell({children,activeId}:{children:React.React
   try{
    const r=await fetch('/api/docs',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({title:'Untitled',project})});
    const raw=await r.text();let x:{id?:string;token?:string;ownerUrl?:string;error?:string}={};
-   try{x=JSON.parse(raw)}catch{throw Error('Document service unavailable. Check Supabase and deployment logs.')}
+   try{x=JSON.parse(raw)}catch{throw Error('Document service unavailable. Check Neon and deployment logs.')}
    if(!r.ok)throw Error(x.error||'Unable to create document');
    if(!x.id||!x.token||!x.ownerUrl)throw Error('Incomplete document response');
    putDoc({id:x.id,title:'Untitled',token:x.token,project,createdAt:new Date().toISOString()});
    refresh();router.push(x.ownerUrl);
   }catch(e){setError((e as Error).message)}finally{setBusy(false)}
  }
- function createProject(){
-  setMenu(false);setProjectMenu(null);
-  const name=window.prompt('Project name')?.trim();if(!name)return;
-  addProject(name);refresh();setOpenProjects(prev=>[...new Set([...prev,name])]);setArea('projects');
- }
+ function createProject(){setMenu(false);setProjectMenu(null);SV('');SD('create')}
+ function submitProject(){const name=projectValue.trim();if(!name)return;if(projectDialog==='create'){addProject(name);setOpenProjects(prev=>[...new Set([...prev,name])]);setArea('projects')}if(projectDialog==='rename'){renameProject(targetProject,name);setOpenProjects(prev=>prev.map(x=>x===targetProject?name:x))}if(projectDialog==='remove')removeProject(targetProject);refresh();SD(null)}
  function toggleProject(name:string){setOpenProjects(prev=>prev.includes(name)?prev.filter(x=>x!==name):[...prev,name])}
  function move(id:string,project:string){moveDoc(id,project);refresh();setOpenProjects(prev=>[...new Set([...prev,project])])}
- function changeName(name:string){const next=window.prompt('Rename project',name)?.trim();if(!next||next===name)return;renameProject(name,next);refresh();setOpenProjects(prev=>prev.map(x=>x===name?next:x))}
- function deleteProject(name:string){if(!window.confirm('Remove this project? Its documents will return to All docs.'))return;removeProject(name);refresh()}
+ function changeName(name:string){ST(name);SV(name);SD('rename')}
+ function deleteProject(name:string){ST(name);SV(name);SD('remove')}
  const items:[Area,React.ReactNode,string][]=[['home',<Home size={20}/>, 'Home'],['projects',<FolderKanban size={20}/>, 'Projects'],['docs',<FileText size={20}/>, 'Docs'],['connections',<Plug size={20}/>, 'Connections'],['people',<Users size={20}/>, 'People']];
  const groups=[...new Set([...projects,...docs.map(d=>d.project).filter(Boolean)])];
  const ungrouped=docs.filter(d=>!d.project);
@@ -72,6 +70,7 @@ export default function WorkspaceShell({children,activeId}:{children:React.React
     </div>
    </motion.aside>}
   </AnimatePresence>
+  <AnimatePresence>{projectDialog&&<motion.div className="flux-dialog-backdrop" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} onMouseDown={()=>SD(null)}><motion.form className="flux-dialog" onMouseDown={e=>e.stopPropagation()} onSubmit={e=>{e.preventDefault();submitProject()}} initial={{y:12,scale:.97}} animate={{y:0,scale:1}} exit={{y:8,opacity:0}}><h3>{projectDialog==='create'?'New project':projectDialog==='rename'?'Rename project':'Remove project'}</h3>{projectDialog==='remove'?<p>Documents will be moved to All docs.</p>:<input autoFocus aria-label="Project name" placeholder="Project name" value={projectValue} onChange={e=>SV(e.target.value)}/>}<div className="flux-dialog-actions"><button type="button" onClick={()=>SD(null)}>Cancel</button><button type="submit" disabled={projectDialog!=='remove'&&!projectValue.trim()}>{projectDialog==='remove'?'Remove':projectDialog==='create'?'Create':'Save'}</button></div></motion.form></motion.div>}</AnimatePresence>
   <main className="workspace-main">
    <div className="workspace-top"><div className="flux-top-left">{!expanded&&<button className="flux-reopen" aria-label="Expand navigation" onClick={()=>setExpanded(true)}><PanelLeft size={17}/></button>}<span>{activeId?'Document':'Home'}</span></div><span className="workspace-trail">Flux</span></div>
    {children}
