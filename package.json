@@ -16,7 +16,13 @@
     "react-dom": "^19.1.0",
     "motion": "^12.23.0",
     "lucide-react": "^0.468.0",
-    "@neondatabase/serverless": "^1.0.1"
+    "@neondatabase/serverless": "^1.0.1",
+    "@blocknote/core": "^0.56.0",
+    "@blocknote/react": "^0.56.0",
+    "@blocknote/mantine": "^0.56.0",
+    "@mantine/core": "^8.3.0",
+    "@mantine/hooks": "^8.3.0",
+    "@mantine/utils": "^8.3.0"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
