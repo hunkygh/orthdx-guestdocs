@@ -1,2 +1,2 @@
-import {createClient} from '@supabase/supabase-js';
-export function db(){const url=process.env.NEXT_PUBLIC_SUPABASE_URL;const key=process.env.SUPABASE_SERVICE_ROLE_KEY;if(!url||!key)throw Error('Supabase environment variables missing');return createClient(url,key,{auth:{persistSession:false,autoRefreshToken:false}})}
+import {neon} from '@neondatabase/serverless';
+export function db(){const url=process.env.DATABASE_URL;if(!url)throw new Error('DATABASE_URL missing: set the Neon pooled connection string in Vercel');return neon(url)}
